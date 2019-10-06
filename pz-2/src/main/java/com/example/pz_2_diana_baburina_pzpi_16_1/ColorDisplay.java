@@ -9,12 +9,14 @@ import android.widget.TextView;
 import android.util.Log;
 
 public class ColorDisplay extends AppCompatActivity {
-    final ColorObject color = ColorObject.getInstance();
+    private final ColorObject color = ColorObject.getInstance();
     final String TAG = "States";
 
-    SeekBar seekBarRed;
-    SeekBar seekBarGreen;
-    SeekBar seekBarBlue;
+    private SeekBar seekBarRed;
+    private SeekBar seekBarGreen;
+    private SeekBar seekBarBlue;
+
+    private TextView colorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,7 @@ public class ColorDisplay extends AppCompatActivity {
     }
 
     private void setColorText() {
-        TextView colorTextView = findViewById(R.id.colorText);
+        colorTextView = findViewById(R.id.colorText);
         int[] colorToShow = color.getColor();
 
         String result = String.format(

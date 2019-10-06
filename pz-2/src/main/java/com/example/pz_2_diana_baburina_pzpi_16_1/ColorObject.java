@@ -5,9 +5,9 @@ public class ColorObject {
     private int green;
     private int blue;
 
-    private static final ColorObject colorObject = new ColorObject();
+    private static ColorObject colorObject;
 
-    public ColorObject() {
+    private ColorObject() {
         this.red = 0;
         this.green = 0;
         this.blue = 0;
@@ -31,5 +31,10 @@ public class ColorObject {
         return new int[]{this.red, this.green, this.blue};
     }
 
-    public static ColorObject getInstance() {return colorObject;}
+    public static ColorObject getInstance() {
+        if (colorObject == null) {
+            colorObject = new ColorObject();
+        }
+        return colorObject;
+    }
 }

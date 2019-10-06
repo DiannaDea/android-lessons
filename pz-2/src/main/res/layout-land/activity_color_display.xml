@@ -33,8 +33,7 @@
                 android:id="@+id/colorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Color:" />
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -56,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="RED:" />
+                    android:text="@string/redLabel" />
 
                 <SeekBar
                     android:id="@+id/seekBarRed"
@@ -76,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="GREEN:" />
+                    android:text="@string/greenLabel" />
 
                 <SeekBar
                     android:id="@+id/seekBarGreen"
@@ -96,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="BLUE:" />
+                    android:text="@string/blueLabel" />
 
                 <SeekBar
                     android:id="@+id/seekBarBlue"
