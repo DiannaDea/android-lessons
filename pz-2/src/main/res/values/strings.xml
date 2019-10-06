@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">pz-2</string>
+    <string name="redLabel">RED</string>
+    <string name="greenLabel">GREEN</string>
+    <string name="blueLabel">BLUE</string>
+    <string name="colorLabel">Color</string>
+    <string name="rgbLabel">RGB</string>
+</resources>

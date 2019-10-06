@@ -1,0 +1,2 @@
+include ':app', ':pz-1', ':pz-2'
+rootProject.name='android-lessons'
