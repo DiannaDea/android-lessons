@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.util.Log;
@@ -17,6 +18,8 @@ public class ColorDisplay extends AppCompatActivity {
     private SeekBar seekBarBlue;
 
     private TextView colorTextView;
+
+    private LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,10 @@ public class ColorDisplay extends AppCompatActivity {
 
         colorTextView.setText(result);
         colorTextView.setTextColor(Color.rgb(colorToShow[0], colorToShow[1], colorToShow[2]));
+
+        layout = findViewById(R.id.SelectedColorContainer);
+
+        layout.setBackgroundColor(Color.rgb(colorToShow[0], colorToShow[1], colorToShow[2]));
     }
 
 }

@@ -25,8 +25,8 @@
         <LinearLayout
             android:id="@+id/SelectedColorContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:orientation="horizontal">
 
             <TextView
@@ -41,7 +41,7 @@
             android:id="@+id/SeekBarContainers"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
