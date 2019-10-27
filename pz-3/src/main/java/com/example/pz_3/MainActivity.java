@@ -6,13 +6,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.os.Bundle;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Button button0,button1, button2, button3, button4, button5, button6,
-            button7, button8, button9, buttonAdd, buttonSub, buttonDivision,
-            buttonMul, button10, buttonC, buttonEqual;
-    EditText crunchifyEditText;
+    EditText inputEditText;
 
     Calculator calculator = Calculator.getInstance();
 
@@ -21,21 +17,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        buttonC = (Button) findViewById(R.id.buttonC);
-        buttonEqual = (Button) findViewById(R.id.buttoneql);
-        crunchifyEditText = (EditText) findViewById(R.id.edt1);
+        inputEditText = (EditText) findViewById(R.id.inputEditText);
 
         this.initCalculator();
 
-        buttonEqual.setOnClickListener(this.handleButtonEqualClick());
-        buttonC.setOnClickListener(this.handleButtonEmptyClick());
+        ((Button) findViewById(R.id.buttoneql)).setOnClickListener(this.handleButtonEqualClick());
+        ((Button) findViewById(R.id.buttonC)).setOnClickListener(this.handleButtonEmptyClick());
     }
 
     public View.OnClickListener handleButtonEmptyClick() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crunchifyEditText.setText("");
+                inputEditText.setText("");
                 calculator.emptyResult();
             }
         };
@@ -45,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculator.addValue(Integer.parseInt(crunchifyEditText.getText().toString()));
+                calculator.addValue(Integer.parseInt(inputEditText.getText().toString()));
                 float result = calculator.getResult();
-                crunchifyEditText.setText(result + "");
+                inputEditText.setText(result + "");
             }
         };
     }
@@ -75,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crunchifyEditText.setText(crunchifyEditText.getText() + number);
+                inputEditText.setText(inputEditText.getText() + number);
             }
         });
     }
@@ -84,12 +78,12 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (crunchifyEditText == null) {
-                    crunchifyEditText.setText("");
+                if (inputEditText == null) {
+                    inputEditText.setText("");
                 } else {
-                    calculator.addValue(Float.parseFloat(crunchifyEditText.getText().toString()));
+                    calculator.addValue(Float.parseFloat(inputEditText.getText().toString()));
                     calculator.addOperation(op);
-                    crunchifyEditText.setText(null);
+                    inputEditText.setText(null);
                 }
             }
         });

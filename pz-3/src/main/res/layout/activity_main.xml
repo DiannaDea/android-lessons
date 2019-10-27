@@ -14,7 +14,7 @@
         tools:context=".MainActivity">
 
         <EditText
-            android:id="@+id/edt1"
+            android:id="@+id/inputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/button4"
             android:layout_alignRight="@+id/button4"
-            android:layout_below="@+id/edt1"
+            android:layout_below="@+id/inputEditText"
             android:layout_marginTop="94dp"
             android:text="1" />
 
@@ -112,8 +112,8 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/edt1"
-            android:layout_alignRight="@+id/edt1"
+            android:layout_alignEnd="@+id/inputEditText"
+            android:layout_alignRight="@+id/inputEditText"
             android:layout_alignTop="@+id/button3"
             android:layout_marginLeft="46dp"
             android:layout_marginStart="46dp"
