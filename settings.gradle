@@ -1,2 +1,2 @@
-include ':app', ':pz-1', ':pz-2', ':pz-3-diana-baburina-pzpi-16-1', ':pz-3'
+include ':app', ':pz-1', ':pz-2', ':pz-3-diana-baburina-pzpi-16-1', ':pz-3', ':lab-3', ':lab-1'
 rootProject.name='android-lessons'

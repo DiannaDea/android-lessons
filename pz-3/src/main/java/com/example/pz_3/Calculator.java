@@ -2,16 +2,15 @@ package com.example.pz_3;
 import java.util.*;
 
 enum Operation {
-    ADD,
-    SUBTRACT,
+    ADD, SUBTRACT,
     MULTIPLY,
     DIVIDE
 }
 
 public class Calculator {
     private float result;
-    ArrayList<Operation> operations;
-    ArrayList<Float> values;
+    private ArrayList<Operation> operations;
+    private ArrayList<Float> values;
 
     private static Calculator calculator;
 
@@ -27,6 +26,15 @@ public class Calculator {
 
     public void addOperation(Operation operation) {
         this.operations.add(operation);
+    }
+
+    public void removeLastOperation() {
+        int t = this.operations.size();
+        this.operations.remove(t - 1);
+    }
+
+    public float getResultValue(){
+        return this.result;
     }
 
     public float getResult(){

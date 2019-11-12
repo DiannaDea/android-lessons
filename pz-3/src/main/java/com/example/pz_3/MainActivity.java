@@ -39,9 +39,19 @@ public class MainActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculator.addValue(Integer.parseInt(inputEditText.getText().toString()));
-                float result = calculator.getResult();
-                inputEditText.setText(result + "");
+                String text = inputEditText.getText().toString();
+                float curResult = calculator.getResultValue();
+
+                String t = Float.toString(curResult);
+
+                if (!t.equals(text)) {
+                    calculator.addValue(Integer.parseInt(text));
+                    float result = calculator.getResult();
+                    inputEditText.setText(result + "");
+
+                } else {
+                    inputEditText.setText(curResult + "");
+                }
             }
         };
     }
@@ -69,7 +79,13 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputEditText.setText(inputEditText.getText() + number);
+                String inputText = inputEditText.getText().toString();
+                if (inputText.length() > 0 && inputText.charAt(inputText.length() - 1) == '.' && number.charAt(0) == '.') {
+                    inputEditText.setText(inputText);
+                    return;
+                }
+                inputEditText.setText(inputText+ number);
+                return;
             }
         });
     }
@@ -78,8 +94,16 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (inputEditText == null) {
+                String inputText = inputEditText.getText().toString();
+                if (op == Operation.SUBTRACT && inputEditText.length() == 0 ) {
+                    inputEditText.setText("-");
+                }
+                else if (inputEditText == null) {
                     inputEditText.setText("");
+                }
+                else if (inputEditText.getText().toString().length() == 0){
+                    calculator.removeLastOperation();
+                    calculator.addOperation(op);
                 } else {
                     calculator.addValue(Float.parseFloat(inputEditText.getText().toString()));
                     calculator.addOperation(op);
