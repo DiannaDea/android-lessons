@@ -65,18 +65,14 @@ public class JsonManager {
         return notes;
     }
 
-    public static void appendToJSON(Context context, String note) {
+    public static void writeToJSON(Context context, JSONArray arrayToRewrite) {
         try {
             // get current notes from file
             JSONObject notesObj = JsonManager.readJSON(context);
-            JSONArray existingNotes = notesObj.getJSONArray("notes");
 
             File file = new File(context.getFilesDir(), FILE_NAME);
 
-            // append note to existing notes json
-            JSONObject noteToAppend = new JSONObject(note);
-            existingNotes.put(noteToAppend);
-            notesObj.put("notes", existingNotes);
+            notesObj.put("notes", arrayToRewrite);
 
             // write to file
             FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
