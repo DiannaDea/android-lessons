@@ -6,37 +6,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-enum Level {
-    LOW,
-    MEDIUM,
-    HIGH
-}
-
 public class Note {
     private String name;
     private String description;
-    private Level level;
+    private String level;
     private String date;
     private String image;
 
     public Note(String name, String description, String level, String date, String image){
         this.name = name;
         this.description = description;
-        this.level = this.getLevel(level);
+        this.level = level;
         this.date = date;
         this.image = image;
-    }
-
-    private Level getLevel(String level) {
-        switch (level){
-            case "1":
-                return Level.HIGH;
-            case "2":
-                return Level.MEDIUM;
-            case "3":
-                return Level.LOW;
-        }
-        return Level.LOW;
     }
 
     private Date getDate(String date){
@@ -53,6 +35,10 @@ public class Note {
         return noteDate;
     }
 
+    public String getPriority() {
+        return this.level;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -66,7 +52,7 @@ public class Note {
     }
 
     public void setLevel(String level) {
-        this.level = this.getLevel(level);
+        this.level = level;
     }
 
     public void setDate(String date) {
@@ -79,7 +65,6 @@ public class Note {
 
     public String toJSONString() {
         Gson gson = new Gson();
-        String t = gson.toJson(this);
-        return t;
+        return gson.toJson(this);
     }
 }

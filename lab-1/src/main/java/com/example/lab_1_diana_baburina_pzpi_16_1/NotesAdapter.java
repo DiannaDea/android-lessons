@@ -138,4 +138,28 @@ public class NotesAdapter {
 
         return index;
     }
+
+    public List<Note> filterByPriority(String priority) {
+        List<Note> notes = this.getNotes();
+        List<Note> res = new ArrayList<Note>();
+
+        for (Note note : notes) {
+            if (note.getPriority().equals(priority)) {
+                res.add(note);
+            }
+        }
+        return res;
+    }
+
+    public List<Note> searchByText(String text) {
+        List<Note> notes = this.getNotes();
+        List<Note> res = new ArrayList<Note>();
+
+        for (Note note : notes) {
+            if (note.getName().matches(String.format("(.*)%s(.*)", text))) {
+                res.add(note);
+            }
+        }
+        return res;
+    }
 }
