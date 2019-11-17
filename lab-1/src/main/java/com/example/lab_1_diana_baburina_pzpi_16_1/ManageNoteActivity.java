@@ -25,6 +25,7 @@ public class ManageNoteActivity extends AppCompatActivity {
     NotesAdapter notesAdapter;
     Spinner priorityDropdown;
     String[] priorities = new String[]{"HIGH", "MEDIUM", "LOW"};
+    private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +37,16 @@ public class ManageNoteActivity extends AppCompatActivity {
 
         priorityDropdown = Utils.getPriorityDropdown((Spinner)findViewById(R.id.priorityUpdateInput), this, priorities);
 
-        ((Button) findViewById(R.id.btnChoseImage)).setOnClickListener(this.handleImageChoose(this));
+        ((Button) findViewById(R.id.btnChoseImage)).setOnClickListener(this.chooseImage(this));
 
         if (action.equals("UPDATE")) {
             String noteName = getIntent().getStringExtra("NOTE_TO_UPDATE");
             this.noteToUpdate = notesAdapter.getNote(noteName);
             this.setNoteInfoToInputs(this);
-            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveUpdatedNote(this));
+            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.updateNote());
         }
         if (action.equals("CREATE")) {
-            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveCreatedNote(this));
+            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.saveNote());
         }
     }
 
@@ -88,11 +89,9 @@ public class ManageNoteActivity extends AppCompatActivity {
         } else {
             imgView.setImageDrawable(getResources().getDrawable(R.drawable.note_default));
         }
-
-
     }
 
-    public View.OnClickListener handleSaveCreatedNote(final Context ctx) {
+    public View.OnClickListener saveNote() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +120,7 @@ public class ManageNoteActivity extends AppCompatActivity {
         };
     }
 
-    public View.OnClickListener handleSaveUpdatedNote(final Context ctx) {
+    public View.OnClickListener updateNote() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,9 +165,8 @@ public class ManageNoteActivity extends AppCompatActivity {
         };
     }
 
-    private static int RESULT_LOAD_IMAGE = 1;
 
-    public View.OnClickListener handleImageChoose(final Context ctx) {
+    public View.OnClickListener chooseImage(final Context ctx) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +174,7 @@ public class ManageNoteActivity extends AppCompatActivity {
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+                startActivityForResult(i, 1);
             }
         };
     }

@@ -4,10 +4,27 @@
     android:id="@+id/noteInfoModal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:weightSum="1">
+
+    <LinearLayout
+        android:id="@+id/noteImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:src="@drawable/note_default"></ImageView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/noteName"

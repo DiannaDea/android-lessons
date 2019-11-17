@@ -2,6 +2,8 @@ package com.example.lab_1_diana_baburina_pzpi_16_1;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.TypedValue;
@@ -10,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Utils {
@@ -144,14 +148,22 @@ public class Utils {
         TextView date = (TextView) customLayout.findViewById(R.id.noteDateValue);
         date.setText(note.getDate());
 
+        File imgFile = new  File(note.getImagePath());
+        ImageView imgView = (ImageView) customLayout.findViewById(R.id.imgView);
+
+        if (imgFile.exists()){
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            imgView.setImageBitmap(myBitmap);
+        } else {
+            imgView.setImageDrawable(ctx.getResources().getDrawable(R.drawable.note_default));
+        }
+
         return builder;
     }
 
     static Spinner getPriorityDropdown(Spinner spinnerElement, Context ctx, String[] items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(ctx, android.R.layout.simple_spinner_dropdown_item, items);
         spinnerElement.setAdapter(adapter);
-
-        // spinnerElement.setSelection(0);
 
         return spinnerElement;
     }

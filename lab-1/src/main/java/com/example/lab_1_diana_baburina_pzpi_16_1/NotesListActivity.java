@@ -33,10 +33,24 @@ public class NotesListActivity extends AppCompatActivity {
         this.notesAdapter = new NotesAdapter(this);
 
         this.notesListLayout = (LinearLayout) findViewById(R.id.notesListLayout);
-        ((Button) findViewById(R.id.btnCreateNote)).setOnClickListener(this.getCreateButtonHandler(this));
-        ((Button) findViewById(R.id.btnSearch)).setOnClickListener(this.handleSearchNotes(this));
-
+        
         this.refreshNotesList(notesAdapter.getNotes());
+
+        setManagementButtons();
+        setPriorityFilter();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        this.refreshNotesList(notesAdapter.getNotes());
+    }
+    
+    private void setManagementButtons() {
+        ((Button) findViewById(R.id.btnCreateNote)).setOnClickListener(this.createNote(this));
+        ((Button) findViewById(R.id.btnSearch)).setOnClickListener(this.searchNotes(this));
+    }
+    
+    private void setPriorityFilter() {
         priorityDropdown = Utils.getPriorityDropdown((Spinner)findViewById(R.id.filterDropdown), this, priorities);
         priorityDropdown.setSelection(0);
 
@@ -57,11 +71,6 @@ public class NotesListActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        this.refreshNotesList(notesAdapter.getNotes());
-    }
-
     private void refreshNotesList(List<Note> notes) {
         this.notesListLayout.removeAllViews();
 
@@ -70,7 +79,7 @@ public class NotesListActivity extends AppCompatActivity {
         }
     }
 
-    public View.OnClickListener handleSearchNotes(final Context ctx) {
+    public View.OnClickListener searchNotes(final Context ctx) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +95,7 @@ public class NotesListActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnClickListener getDeleteButtonHandler(final Context ctx,final Note note) {
+    private View.OnClickListener deleteNote(final Context ctx,final Note note) {
         return new View.OnClickListener(){
             public void onClick(View v){
                 AlertDialog.Builder deleteModalBuilder = Utils.getDeleteModal(ctx, note);
@@ -113,7 +122,7 @@ public class NotesListActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnClickListener getInfoButtonHandler(final Context ctx,final Note note) {
+    private View.OnClickListener getNoteInformation(final Context ctx,final Note note) {
         return new View.OnClickListener(){
             public void onClick(View v){
                 AlertDialog.Builder infoModalBuilder = Utils.getInfoModal(ctx, note);
@@ -130,7 +139,7 @@ public class NotesListActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnClickListener getCreateButtonHandler(final Context ctx) {
+    private View.OnClickListener createNote(final Context ctx) {
         return new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(NotesListActivity.this, ManageNoteActivity.class);
@@ -142,7 +151,7 @@ public class NotesListActivity extends AppCompatActivity {
         };
     }
 
-    private View.OnClickListener getUpdateButtonHandler(final Context ctx, final Note note) {
+    private View.OnClickListener updateNote(final Context ctx, final Note note) {
         return new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(NotesListActivity.this, ManageNoteActivity.class);
@@ -158,9 +167,9 @@ public class NotesListActivity extends AppCompatActivity {
     private void addNoteDetailsContainer(Note note) {
         ArrayList<View.OnClickListener> handlers = new ArrayList<View.OnClickListener>();
 
-        handlers.add(this.getInfoButtonHandler(this, note));
-        handlers.add(this.getUpdateButtonHandler(this, note));
-        handlers.add(this.getDeleteButtonHandler(this, note));
+        handlers.add(this.getNoteInformation(this, note));
+        handlers.add(this.updateNote(this, note));
+        handlers.add(this.deleteNote(this, note));
 
         LinearLayout noteContainer = Utils.getNoteContainer(this);
         LinearLayout noteButtonsContainer = Utils.getNoteButtonsContainer(this, handlers);
