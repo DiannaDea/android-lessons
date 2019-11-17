@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class NotesListActivity extends AppCompatActivity {
         this.notesAdapter = new NotesAdapter(this);
 
         this.notesListLayout = (LinearLayout) findViewById(R.id.notesListLayout);
+        ((Button) findViewById(R.id.btnCreateNote)).setOnClickListener(this.getCreateButtonHandler(this));
 
         this.refreshNotesList();
 //
@@ -121,11 +123,24 @@ public class NotesListActivity extends AppCompatActivity {
         };
     }
 
+    private View.OnClickListener getCreateButtonHandler(final Context ctx) {
+        return new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(NotesListActivity.this, ManageNoteActivity.class);
+
+                intent.putExtra("ACTION", "CREATE");
+
+                startActivityForResult(intent, 200);
+            }
+        };
+    }
+
     private View.OnClickListener getUpdateButtonHandler(final Context ctx, final Note note) {
         return new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(NotesListActivity.this, ManageNoteActivity.class);
 
+                intent.putExtra("ACTION", "UPDATE");
                 intent.putExtra("NOTE_TO_UPDATE", note.getName());
 
                 startActivityForResult(intent, 200);
@@ -150,5 +165,4 @@ public class NotesListActivity extends AppCompatActivity {
 
         this.notesListLayout.addView(noteContainer);
     }
-
 }

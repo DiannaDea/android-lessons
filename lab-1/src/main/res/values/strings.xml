@@ -6,4 +6,5 @@
     <string name="noteDetailsDate">Date:</string>
     <string name="btnCreateNote">Create</string>
     <string name="btnSave">Save</string>
+    <string name="Create">Create</string>
 </resources>

@@ -20,12 +20,17 @@ public class ManageNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_note);
         this.notesAdapter = new NotesAdapter(this);
 
-        String noteName = getIntent().getStringExtra("NOTE_TO_UPDATE");
+        String action = getIntent().getStringExtra("ACTION");
 
-        this.noteToUpdate = notesAdapter.getNote(noteName);
-
-        this.setNoteInfoToInputs();
-        ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveNote());
+        if (action.equals("UPDATE")) {
+            String noteName = getIntent().getStringExtra("NOTE_TO_UPDATE");
+            this.noteToUpdate = notesAdapter.getNote(noteName);
+            this.setNoteInfoToInputs();
+            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveUpdatedNote());
+        }
+        if (action.equals("CREATE")) {
+            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveCreatedNote());
+        }
     }
 
     private void setNoteInfoToInputs() {
@@ -42,7 +47,34 @@ public class ManageNoteActivity extends AppCompatActivity {
         date.setText(noteToUpdate.getDate());
     }
 
-    public View.OnClickListener handleSaveNote() {
+    public View.OnClickListener handleSaveCreatedNote() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText nameInput = findViewById(R.id.nameUpdateInput);
+                final String name = nameInput.getText().toString();
+
+                EditText descriptionInput = findViewById(R.id.descriptionUpdateInput);
+                final String description = descriptionInput.getText().toString();
+
+                EditText priorityInput = findViewById(R.id.priorityUpdateInput);
+                final String priority = priorityInput.getText().toString();
+
+                EditText dateInput = findViewById(R.id.dateUpdateInput);
+                final String date = dateInput.getText().toString();
+
+                Note newNote = new Note(name, description, priority, date, "/path/to/image");
+
+                notesAdapter.addNote(newNote);
+
+                Intent data = new Intent();
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        };
+    }
+
+    public View.OnClickListener handleSaveUpdatedNote() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
