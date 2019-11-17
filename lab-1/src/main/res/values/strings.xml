@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">lab-1</string>
+    <string name="noteDetailsName">Name:</string>
+    <string name="noteDetailsDescription">Description:</string>
+    <string name="noteDetailsPriority">Priority:</string>
+    <string name="noteDetailsDate">Date:</string>
+    <string name="btnCreateNote">Create</string>
+    <string name="btnSave">Save</string>
 </resources>

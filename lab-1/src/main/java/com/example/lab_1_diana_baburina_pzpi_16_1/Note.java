@@ -2,10 +2,6 @@ package com.example.lab_1_diana_baburina_pzpi_16_1;
 
 import com.google.gson.Gson;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Note {
     private String name;
     private String description;
@@ -21,26 +17,20 @@ public class Note {
         this.image = image;
     }
 
-    private Date getDate(String date){
-        String pattern = "dd.MM.yyyy HH:mm";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    public String getName() {
+        return this.name;
+    }
 
-        Date noteDate = null;
-
-        try {
-            noteDate = simpleDateFormat.parse(date);
-        } catch (ParseException ex) {
-
-        }
-        return noteDate;
+    public String getDescription() {
+        return this.description;
     }
 
     public String getPriority() {
         return this.level;
     }
 
-    public String getName() {
-        return this.name;
+    public String getDate() {
+        return this.date;
     }
 
     public void setName(String name) {
