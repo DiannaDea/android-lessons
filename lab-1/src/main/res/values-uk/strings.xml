@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">lab-1</string>
+    <string name="btnAddImage">Додати зображення</string>
+    <string name="btnCreateNote">Додати</string>
+    <string name="btnSave">Зберегти</string>
+    <string name="btnSearch">Пошук</string>
+    <string name="nameSearch">Назва</string>
+    <string name="noteDetailsDate">Дата:</string>
+    <string name="noteDetailsDescription">Опис:</string>
+    <string name="noteDetailsImage">Шлях до зображення:</string>
+    <string name="noteDetailsName">Назва:</string>
+    <string name="noteDetailsPriority">Важливість:</string>
+    <string name="priorityFilter">Важливість</string>
+    <string name="Create">Додати</string>
+    <string name="btnDelete">Видалити</string>
+    <string name="btnMore">Більше</string>
+    <string name="btnUpdate">Оновити</string>
+    <string name="highPriority">Висока</string>
+    <string name="lowPriority">Низька</string>
+    <string name="mediumPriority">Середня</string>
+    <string name="allPriorities">Усі</string>
+    <string name="btnOk">Підтвердити</string>
+    <string name="btnCancel">Відмінити</string>
+    <string name="modalNoteDetails">Інформація про замітку</string>
+    <string name="modalDetele">Ви впевнені?</string>
+    <string name="questionDeleteNote">Ви хочете видалити замітку:</string>
+</resources>

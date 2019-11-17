@@ -21,7 +21,6 @@ public class NotesListActivity extends AppCompatActivity {
     LinearLayout notesListLayout;
     NotesAdapter notesAdapter;
     Spinner priorityDropdown;
-    String[] priorities = new String[]{"ALL", "HIGH", "MEDIUM", "LOW"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +50,20 @@ public class NotesListActivity extends AppCompatActivity {
     }
     
     private void setPriorityFilter() {
+        final String[] priorities = new String[]{
+                getResources().getString(R.string.allPriorities),
+                getResources().getString(R.string.highPriority),
+                getResources().getString(R.string.mediumPriority),
+                getResources().getString(R.string.lowPriority)
+        };
+
         priorityDropdown = Utils.getPriorityDropdown((Spinner)findViewById(R.id.filterDropdown), this, priorities);
         priorityDropdown.setSelection(0);
 
         priorityDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (priorities[position].equals("ALL")) {
+                if (priorities[position].equals(getResources().getString(R.string.allPriorities))) {
                     refreshNotesList(notesAdapter.getNotes());
                 } else {
                     refreshNotesList(notesAdapter.filterByPriority(priorities[position]));
@@ -100,7 +106,7 @@ public class NotesListActivity extends AppCompatActivity {
             public void onClick(View v){
                 AlertDialog.Builder deleteModalBuilder = Utils.getDeleteModal(ctx, note);
 
-                deleteModalBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                deleteModalBuilder.setPositiveButton(getResources().getString(R.string.btnOk), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         notesAdapter.deleteNote(note.getName());
@@ -108,7 +114,7 @@ public class NotesListActivity extends AppCompatActivity {
                     }
                 });
 
-                deleteModalBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                deleteModalBuilder.setNeutralButton(getResources().getString(R.string.btnCancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
@@ -127,7 +133,7 @@ public class NotesListActivity extends AppCompatActivity {
             public void onClick(View v){
                 AlertDialog.Builder infoModalBuilder = Utils.getInfoModal(ctx, note);
 
-                infoModalBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                infoModalBuilder.setPositiveButton(getResources().getString(R.string.btnOk), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }

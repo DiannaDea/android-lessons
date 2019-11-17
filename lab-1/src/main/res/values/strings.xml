@@ -8,8 +8,20 @@
     <string name="btnSave">Save</string>
     <string name="Create">Create</string>
     <string name="priorityFilter">Priority</string>
-    <string name="nameSearch">Name</string>
+    <string name="nameSearch">Note</string>
     <string name="btnSearch">Search</string>
     <string name="btnAddImage">Add image</string>
     <string name="noteDetailsImage">Image path:</string>
+    <string name="btnMore">More</string>
+    <string name="btnUpdate">Update</string>
+    <string name="btnDelete">Delete</string>
+    <string name="highPriority">HIGH</string>
+    <string name="mediumPriority">MEDIUM</string>
+    <string name="lowPriority">LOW</string>
+    <string name="allPriorities">ALL</string>
+    <string name="btnOk">OK</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="modalNoteDetails">Note details</string>
+    <string name="modalDetele">Are you sure?</string>
+    <string name="questionDeleteNote">Do you want to delete note:</string>
 </resources>

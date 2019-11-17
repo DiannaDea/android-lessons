@@ -40,9 +40,9 @@ public class Utils {
 
         buttonsContainer.setLayoutParams(buttonsContainerParams);
 
-        Button infoNoteBtn = Utils.createButton(ctx, "More", handlers.get(0));
-        Button updateNoteBtn = Utils.createButton(ctx, "Update", handlers.get(1));
-        Button deleteNoteBtn = Utils.createButton(ctx, "Delete", handlers.get(2));
+        Button infoNoteBtn = Utils.createButton(ctx, ctx.getResources().getString(R.string.btnMore), handlers.get(0));
+        Button updateNoteBtn = Utils.createButton(ctx, ctx.getResources().getString(R.string.btnUpdate), handlers.get(1));
+        Button deleteNoteBtn = Utils.createButton(ctx, ctx.getResources().getString(R.string.btnDelete), handlers.get(2));
 
         buttonsContainer.addView(infoNoteBtn);
         buttonsContainer.addView(updateNoteBtn);
@@ -111,7 +111,7 @@ public class Utils {
 
     static AlertDialog.Builder getDeleteModal(Context ctx, Note note) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-        builder.setTitle("Are you sure?");
+        builder.setTitle(ctx.getResources().getString(R.string.modalDetele));
 
         LayoutInflater inflater = (LayoutInflater) ctx.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 
@@ -121,14 +121,14 @@ public class Utils {
 
         TextView tv = (TextView) customLayout.findViewById(R.id.deleteModalText);
 
-        tv.setText(String.format("Do you want to delete note: %s?", note.getName()));
+        tv.setText(String.format("%s %s?", ctx.getResources().getString(R.string.questionDeleteNote), note.getName()));
 
         return builder;
     }
 
     static AlertDialog.Builder getInfoModal(Context ctx, Note note) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-        builder.setTitle("Note details");
+        builder.setTitle(ctx.getResources().getString(R.string.modalNoteDetails));
 
         LayoutInflater inflater = (LayoutInflater) ctx.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
 
