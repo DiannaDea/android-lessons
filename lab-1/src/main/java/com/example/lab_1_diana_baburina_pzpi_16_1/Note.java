@@ -33,6 +33,10 @@ public class Note {
         return this.date;
     }
 
+    public String getImagePath() {
+        return this.image;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

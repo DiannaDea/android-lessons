@@ -10,4 +10,6 @@
     <string name="priorityFilter">Priority</string>
     <string name="nameSearch">Name</string>
     <string name="btnSearch">Search</string>
+    <string name="btnAddImage">Add image</string>
+    <string name="noteDetailsImage">Image path:</string>
 </resources>
