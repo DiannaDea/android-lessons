@@ -8,8 +8,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -143,5 +145,15 @@ public class Utils {
         date.setText(note.getDate());
 
         return builder;
+    }
+
+    static Spinner getPriorityDropdown(Spinner spinnerElement, Context ctx) {
+        String[] items = new String[]{"HIGH", "MEDIUM", "LOW"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(ctx, android.R.layout.simple_spinner_dropdown_item, items);
+        spinnerElement.setAdapter(adapter);
+
+        // spinnerElement.setSelection(0);
+
+        return spinnerElement;
     }
 }

@@ -1,10 +1,12 @@
 package com.example.lab_1_diana_baburina_pzpi_16_1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +15,7 @@ import java.util.HashMap;
 public class ManageNoteActivity extends AppCompatActivity {
     Note noteToUpdate;
     NotesAdapter notesAdapter;
+    Spinner priorityDropdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,32 +25,47 @@ public class ManageNoteActivity extends AppCompatActivity {
 
         String action = getIntent().getStringExtra("ACTION");
 
+        priorityDropdown = Utils.getPriorityDropdown((Spinner)findViewById(R.id.priorityUpdateInput), this);
+
         if (action.equals("UPDATE")) {
             String noteName = getIntent().getStringExtra("NOTE_TO_UPDATE");
             this.noteToUpdate = notesAdapter.getNote(noteName);
-            this.setNoteInfoToInputs();
-            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveUpdatedNote());
+            this.setNoteInfoToInputs(this);
+            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveUpdatedNote(this));
         }
         if (action.equals("CREATE")) {
-            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveCreatedNote());
+            ((Button) findViewById(R.id.btnSave)).setOnClickListener(this.handleSaveCreatedNote(this));
         }
     }
 
-    private void setNoteInfoToInputs() {
+    private void setNoteInfoToInputs(Context ctx) {
         EditText name = findViewById(R.id.nameUpdateInput);
         name.setText(noteToUpdate.getName());
 
         EditText description = findViewById(R.id.descriptionUpdateInput);
         description.setText(noteToUpdate.getDescription());
 
-        EditText priority = findViewById(R.id.priorityUpdateInput);
-        priority.setText(noteToUpdate.getPriority());
+        Spinner priority = Utils.getPriorityDropdown((Spinner)findViewById(R.id.priorityUpdateInput), ctx);
+
+        String priorityValue = noteToUpdate.getPriority();
+
+        switch (priorityValue) {
+            case "HIGH":
+                priority.setSelection(0);
+                break;
+            case "MEDIUM":
+                priority.setSelection(1);
+                break;
+            case "LOW":
+                priority.setSelection(2);
+                break;
+        }
 
         EditText date = findViewById(R.id.dateUpdateInput);
         date.setText(noteToUpdate.getDate());
     }
 
-    public View.OnClickListener handleSaveCreatedNote() {
+    public View.OnClickListener handleSaveCreatedNote(final Context ctx) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +75,7 @@ public class ManageNoteActivity extends AppCompatActivity {
                 EditText descriptionInput = findViewById(R.id.descriptionUpdateInput);
                 final String description = descriptionInput.getText().toString();
 
-                EditText priorityInput = findViewById(R.id.priorityUpdateInput);
-                final String priority = priorityInput.getText().toString();
+                final String priority = priorityDropdown.getSelectedItem().toString();
 
                 EditText dateInput = findViewById(R.id.dateUpdateInput);
                 final String date = dateInput.getText().toString();
@@ -74,7 +91,7 @@ public class ManageNoteActivity extends AppCompatActivity {
         };
     }
 
-    public View.OnClickListener handleSaveUpdatedNote() {
+    public View.OnClickListener handleSaveUpdatedNote(final Context ctx) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +101,7 @@ public class ManageNoteActivity extends AppCompatActivity {
                 EditText descriptionInput = findViewById(R.id.descriptionUpdateInput);
                 final String description = descriptionInput.getText().toString();
 
-                EditText priorityInput = findViewById(R.id.priorityUpdateInput);
-                final String priority = priorityInput.getText().toString();
+                final String priority = priorityDropdown.getSelectedItem().toString();
 
                 EditText dateInput = findViewById(R.id.dateUpdateInput);
                 final String date = dateInput.getText().toString();
@@ -113,4 +129,6 @@ public class ManageNoteActivity extends AppCompatActivity {
             }
         };
     }
+
+
 }
