@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -33,6 +34,7 @@ public class NotesListActivity extends AppCompatActivity {
 
         this.notesListLayout = (LinearLayout) findViewById(R.id.notesListLayout);
         ((Button) findViewById(R.id.btnCreateNote)).setOnClickListener(this.getCreateButtonHandler(this));
+        ((Button) findViewById(R.id.btnSearch)).setOnClickListener(this.handleSearchNotes(this));
 
         this.refreshNotesList(notesAdapter.getNotes());
         priorityDropdown = Utils.getPriorityDropdown((Spinner)findViewById(R.id.filterDropdown), this, priorities);
@@ -66,6 +68,22 @@ public class NotesListActivity extends AppCompatActivity {
         for(Note note : notes) {
             this.addNoteDetailsContainer(note);
         }
+    }
+
+    public View.OnClickListener handleSearchNotes(final Context ctx) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText searchFieldInput = findViewById(R.id.searchField);
+                final String searchField = searchFieldInput.getText().toString();
+
+                if (searchField.length() >= 1) {
+                    refreshNotesList(notesAdapter.searchByText(searchField));
+                } else {
+                    refreshNotesList(notesAdapter.getNotes());
+                }
+            }
+        };
     }
 
     private View.OnClickListener getDeleteButtonHandler(final Context ctx,final Note note) {

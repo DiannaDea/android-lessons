@@ -156,7 +156,7 @@ public class NotesAdapter {
         List<Note> res = new ArrayList<Note>();
 
         for (Note note : notes) {
-            if (note.getName().matches(String.format("(.*)%s(.*)", text))) {
+            if (note.getName().matches(String.format("(?i:.*%s.*)", text))) {
                 res.add(note);
             }
         }
