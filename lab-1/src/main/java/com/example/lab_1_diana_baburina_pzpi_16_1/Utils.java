@@ -147,8 +147,7 @@ public class Utils {
         return builder;
     }
 
-    static Spinner getPriorityDropdown(Spinner spinnerElement, Context ctx) {
-        String[] items = new String[]{"HIGH", "MEDIUM", "LOW"};
+    static Spinner getPriorityDropdown(Spinner spinnerElement, Context ctx, String[] items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(ctx, android.R.layout.simple_spinner_dropdown_item, items);
         spinnerElement.setAdapter(adapter);
 

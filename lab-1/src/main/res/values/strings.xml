@@ -7,4 +7,7 @@
     <string name="btnCreateNote">Create</string>
     <string name="btnSave">Save</string>
     <string name="Create">Create</string>
+    <string name="priorityFilter">Priority</string>
+    <string name="nameSearch">Name</string>
+    <string name="btnSearch">Search</string>
 </resources>

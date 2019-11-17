@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +19,8 @@ import java.util.List;
 public class NotesListActivity extends AppCompatActivity {
     LinearLayout notesListLayout;
     NotesAdapter notesAdapter;
+    Spinner priorityDropdown;
+    String[] priorities = new String[]{"ALL", "HIGH", "MEDIUM", "LOW"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,49 +34,34 @@ public class NotesListActivity extends AppCompatActivity {
         this.notesListLayout = (LinearLayout) findViewById(R.id.notesListLayout);
         ((Button) findViewById(R.id.btnCreateNote)).setOnClickListener(this.getCreateButtonHandler(this));
 
-        this.refreshNotesList();
-//
-//        List<Note> notes = notesAdapter.getNotes();
-//
-//       Note note = new Note("note1_22", "description", "HIGH", "12.12.2019 12:00", "/path/to/image");
-//       Note note2 = new Note("note2_23", "description", "1", "12.12.2019 12:00", "/path/to/image");
-//       Note note3 = new Note("note3", "description", "1", "12.12.2019 12:00", "/path/to/image");
-//
-//       notesAdapter.addNote(note);
-//        notesAdapter.addNote(note2);
-//        notesAdapter.addNote(note3);
-//
-//        List<Note> notes4 = notesAdapter.getNotes();
-//
-//       notesAdapter.deleteNote("note2");
-//       List<Note> notes2 = notesAdapter.getNotes();
-//
-//        Note tes = notesAdapter.getNote("note1");
-//
-//        HashMap<String, String> paramsToUpdate = new HashMap<String, String>(){{
-//            put("description", "DESCRIPTION_TEST");
-//            put("name", "DIANA_TEST");
-//            put("level", "3");
-//            put("date", "12.12.2019 12:00");
-//        }};
-//
-//        notesAdapter.updateNote("note1", paramsToUpdate);
-//
-//        Note tes1 = notesAdapter.getNote("DIANA_TEST");
-        List<Note> notes24 = notesAdapter.getNotes();
+        this.refreshNotesList(notesAdapter.getNotes());
+        priorityDropdown = Utils.getPriorityDropdown((Spinner)findViewById(R.id.filterDropdown), this, priorities);
+        priorityDropdown.setSelection(0);
 
-        List<Note> searched = notesAdapter.searchByText("DIANA");
+        priorityDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (priorities[position].equals("ALL")) {
+                    refreshNotesList(notesAdapter.getNotes());
+                } else {
+                    refreshNotesList(notesAdapter.filterByPriority(priorities[position]));
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        this.refreshNotesList();
+        this.refreshNotesList(notesAdapter.getNotes());
     }
 
-    private void refreshNotesList() {
+    private void refreshNotesList(List<Note> notes) {
         this.notesListLayout.removeAllViews();
-        List<Note> notes = notesAdapter.getNotes();
 
         for(Note note : notes) {
             this.addNoteDetailsContainer(note);
@@ -88,7 +77,7 @@ public class NotesListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         notesAdapter.deleteNote(note.getName());
-                        refreshNotesList();
+                        refreshNotesList(notesAdapter.getNotes());
                     }
                 });
 

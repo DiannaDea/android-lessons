@@ -16,6 +16,7 @@ public class ManageNoteActivity extends AppCompatActivity {
     Note noteToUpdate;
     NotesAdapter notesAdapter;
     Spinner priorityDropdown;
+    String[] priorities = new String[]{"HIGH", "MEDIUM", "LOW"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class ManageNoteActivity extends AppCompatActivity {
 
         String action = getIntent().getStringExtra("ACTION");
 
-        priorityDropdown = Utils.getPriorityDropdown((Spinner)findViewById(R.id.priorityUpdateInput), this);
+        priorityDropdown = Utils.getPriorityDropdown((Spinner)findViewById(R.id.priorityUpdateInput), this, priorities);
 
         if (action.equals("UPDATE")) {
             String noteName = getIntent().getStringExtra("NOTE_TO_UPDATE");
@@ -45,7 +46,7 @@ public class ManageNoteActivity extends AppCompatActivity {
         EditText description = findViewById(R.id.descriptionUpdateInput);
         description.setText(noteToUpdate.getDescription());
 
-        Spinner priority = Utils.getPriorityDropdown((Spinner)findViewById(R.id.priorityUpdateInput), ctx);
+        Spinner priority = Utils.getPriorityDropdown((Spinner)findViewById(R.id.priorityUpdateInput), ctx, priorities);
 
         String priorityValue = noteToUpdate.getPriority();
 
