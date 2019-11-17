@@ -66,7 +66,7 @@ public class Utils {
         TextView description = Utils.createTextView(ctx, note.getDescription(), "");
         noteDetailsContainer.addView(description);
 
-        TextView priority = Utils.createTextView(ctx, note.getPriority(), "");
+        TextView priority = Utils.createTextView(ctx, Note.transformPriorityToString(note.getPriority(), ctx), "");
         noteDetailsContainer.addView(priority);
 
         TextView date = Utils.createTextView(ctx, note.getDate(), "");
@@ -143,7 +143,7 @@ public class Utils {
         description.setText(note.getDescription());
 
         TextView priority = (TextView) customLayout.findViewById(R.id.notePriorityValue);
-        priority.setText(note.getPriority());
+        priority.setText(Note.transformPriorityToString(note.getPriority(), ctx));
 
         TextView date = (TextView) customLayout.findViewById(R.id.noteDateValue);
         date.setText(note.getDate());

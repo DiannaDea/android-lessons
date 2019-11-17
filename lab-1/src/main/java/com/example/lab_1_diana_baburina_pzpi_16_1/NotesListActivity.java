@@ -66,7 +66,7 @@ public class NotesListActivity extends AppCompatActivity {
                 if (priorities[position].equals(getResources().getString(R.string.allPriorities))) {
                     refreshNotesList(notesAdapter.getNotes());
                 } else {
-                    refreshNotesList(notesAdapter.filterByPriority(priorities[position]));
+                    refreshNotesList(notesAdapter.filterByPriority(position - 1));
                 }
             }
 

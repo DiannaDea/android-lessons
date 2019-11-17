@@ -30,12 +30,12 @@ public class NotesAdapter {
                 Note note = new Note(
                         noteJSON.get("name").toString(),
                         noteJSON.get("description").toString(),
-                        noteJSON.get("level").toString(),
+                        (int)noteJSON.get("level"),
                         noteJSON.get("date").toString(),
                         noteJSON.get("image").toString()
                 );
 
-                notes.add(note);
+                 notes.add(note);
             }
         } catch (JSONException e) {}
         return notes;
@@ -84,7 +84,7 @@ public class NotesAdapter {
                         noteToUpdate.setDate(val);
                         break;
                     case "level":
-                        noteToUpdate.setLevel(val);
+                        noteToUpdate.setLevel(Integer.parseInt(val));
                         break;
                     case "image":
                         noteToUpdate.setImage(val);
@@ -139,12 +139,12 @@ public class NotesAdapter {
         return index;
     }
 
-    public List<Note> filterByPriority(String priority) {
+    public List<Note> filterByPriority(int priority) {
         List<Note> notes = this.getNotes();
         List<Note> res = new ArrayList<Note>();
 
         for (Note note : notes) {
-            if (note.getPriority().equals(priority)) {
+            if (note.getPriority() == priority) {
                 res.add(note);
             }
         }

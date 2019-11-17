@@ -24,7 +24,7 @@ public class ManageNoteActivity extends AppCompatActivity {
     Note noteToUpdate;
     NotesAdapter notesAdapter;
     Spinner priorityDropdown;
-    String[] priorities = new String[]{"HIGH", "MEDIUM", "LOW"};
+    String[] priorities;
     private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
@@ -32,6 +32,12 @@ public class ManageNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_note);
         this.notesAdapter = new NotesAdapter(this);
+
+        priorities = new String[]{
+                getResources().getString(R.string.highPriority),
+                getResources().getString(R.string.mediumPriority),
+                getResources().getString(R.string.lowPriority)
+        };
 
         String action = getIntent().getStringExtra("ACTION");
 
@@ -59,19 +65,8 @@ public class ManageNoteActivity extends AppCompatActivity {
 
         Spinner priority = Utils.getPriorityDropdown((Spinner)findViewById(R.id.priorityUpdateInput), ctx, priorities);
 
-        String priorityValue = noteToUpdate.getPriority();
-
-        switch (priorityValue) {
-            case "HIGH":
-                priority.setSelection(0);
-                break;
-            case "MEDIUM":
-                priority.setSelection(1);
-                break;
-            case "LOW":
-                priority.setSelection(2);
-                break;
-        }
+        int priorityValue = noteToUpdate.getPriority();
+        priority.setSelection(priorityValue);
 
         EditText date = findViewById(R.id.dateUpdateInput);
         date.setText(noteToUpdate.getDate());
@@ -109,7 +104,7 @@ public class ManageNoteActivity extends AppCompatActivity {
                 TextView imagePathInput = findViewById(R.id.imagePathUpdateInput);
                 final String imagePath = imagePathInput.getText().toString();
 
-                Note newNote = new Note(name, description, priority, date, imagePath);
+                Note newNote = new Note(name, description, Note.transformPriorityToInt(priority), date, imagePath);
 
                 notesAdapter.addNote(newNote);
 
@@ -130,7 +125,7 @@ public class ManageNoteActivity extends AppCompatActivity {
                 EditText descriptionInput = findViewById(R.id.descriptionUpdateInput);
                 final String description = descriptionInput.getText().toString();
 
-                final String priority = priorityDropdown.getSelectedItem().toString();
+                final int priority = priorityDropdown.getSelectedItemPosition();
 
                 EditText dateInput = findViewById(R.id.dateUpdateInput);
                 final String date = dateInput.getText().toString();
@@ -145,8 +140,8 @@ public class ManageNoteActivity extends AppCompatActivity {
                     if (!noteToUpdate.getDescription().equals(description)) {
                         put("description", description);
                     }
-                    if (!noteToUpdate.getPriority().equals(priority)) {
-                        put("level", priority);
+                    if (priority != noteToUpdate.getPriority()) {
+                        put("level", Integer.toString(priority));
                     }
                     if (!noteToUpdate.getDate().equals(date)) {
                         put("date", date);

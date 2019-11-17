@@ -1,15 +1,17 @@
 package com.example.lab_1_diana_baburina_pzpi_16_1;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 public class Note {
     private String name;
     private String description;
-    private String level;
+    private int level;
     private String date;
     private String image;
 
-    public Note(String name, String description, String level, String date, String image){
+    public Note(String name, String description, int level, String date, String image){
         this.name = name;
         this.description = description;
         this.level = level;
@@ -25,7 +27,7 @@ public class Note {
         return this.description;
     }
 
-    public String getPriority() {
+    public int getPriority() {
         return this.level;
     }
 
@@ -45,7 +47,7 @@ public class Note {
         this.description = description;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
@@ -60,5 +62,29 @@ public class Note {
     public String toJSONString() {
         Gson gson = new Gson();
         return gson.toJson(this);
+    }
+
+    static String transformPriorityToString(int priority, Context ctx) {
+        switch (priority) {
+            case 0:
+                return ctx.getResources().getString(R.string.highPriority);
+            case 1:
+                return ctx.getResources().getString(R.string.mediumPriority);
+            case 2:
+                return ctx.getResources().getString(R.string.lowPriority);
+        }
+        return "LOW";
+    }
+
+    static int transformPriorityToInt(String priority) {
+        switch (priority) {
+            case "HIGH":
+                return 0;
+            case "MEDIUM":
+                return 1;
+            case "LOW":
+                return 2;
+        }
+        return 3;
     }
 }
