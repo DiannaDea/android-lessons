@@ -22,8 +22,7 @@ import java.util.HashMap;
 
 public class ManageNoteActivity extends AppCompatActivity {
     Note noteToUpdate;
-    // NotesAdapter notesAdapter;
-    DatabaseHandler notesAdapter;
+    NotesAdapter notesAdapter;
     Spinner priorityDropdown;
     String[] priorities;
     private static int RESULT_LOAD_IMAGE = 1;
@@ -32,8 +31,8 @@ public class ManageNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_note);
-        // this.notesAdapter = new NotesAdapter(this);
-        this.notesAdapter = new DatabaseHandler(this);
+
+        this.notesAdapter = new NotesAdapter(new JsonHandler(this));
 
         priorities = new String[]{
                 getResources().getString(R.string.highPriority),

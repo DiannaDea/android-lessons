@@ -19,8 +19,7 @@ import java.util.List;
 
 public class NotesListActivity extends AppCompatActivity {
     LinearLayout notesListLayout;
-    // NotesAdapter notesAdapter;
-    DatabaseHandler notesAdapter;
+    NotesAdapter notesAdapter;
     Spinner priorityDropdown;
 
     @Override
@@ -30,8 +29,7 @@ public class NotesListActivity extends AppCompatActivity {
 
         JsonManager.readJSON(this);
 
-        // this.notesAdapter = new NotesAdapter(this);
-        this.notesAdapter = new DatabaseHandler(this);
+        this.notesAdapter = new NotesAdapter(new JsonHandler(this));
 
         this.notesListLayout = (LinearLayout) findViewById(R.id.notesListLayout);
         
