@@ -29,7 +29,7 @@ public class NotesListActivity extends AppCompatActivity {
 
         JsonManager.readJSON(this);
 
-        this.notesAdapter = new NotesAdapter(new JsonHandler(this));
+        this.notesAdapter = new NotesAdapter(new DatabaseHandler(this));
 
         this.notesListLayout = (LinearLayout) findViewById(R.id.notesListLayout);
         
@@ -63,11 +63,14 @@ public class NotesListActivity extends AppCompatActivity {
         priorityDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (priorities[position].equals(getResources().getString(R.string.allPriorities))) {
-                    refreshNotesList(notesAdapter.getNotes());
-                } else {
-                    refreshNotesList(notesAdapter.filterByPriority(position - 1));
-                }
+                int priority = (priorities[position].equals(getResources().getString(R.string.allPriorities)))
+                        ? -1
+                        : position - 1;
+
+                EditText searchFieldInput = findViewById(R.id.searchField);
+                final String searchField = searchFieldInput.getText().toString();
+
+                refreshNotesList(notesAdapter.searchAndFilter(searchField, priority));
             }
 
             @Override
@@ -89,14 +92,16 @@ public class NotesListActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int priorityPosition = priorityDropdown.getSelectedItemPosition();
+
+                final int priority = (priorityPosition == 0)
+                        ? -1
+                        : priorityDropdown.getSelectedItemPosition();
+
                 EditText searchFieldInput = findViewById(R.id.searchField);
                 final String searchField = searchFieldInput.getText().toString();
 
-                if (searchField.length() >= 1) {
-                    refreshNotesList(notesAdapter.searchByText(searchField));
-                } else {
-                    refreshNotesList(notesAdapter.getNotes());
-                }
+                refreshNotesList(notesAdapter.searchAndFilter(searchField, priority));
             }
         };
     }

@@ -32,7 +32,7 @@ public class ManageNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_note);
 
-        this.notesAdapter = new NotesAdapter(new JsonHandler(this));
+        this.notesAdapter = new NotesAdapter(new DatabaseHandler(this));
 
         priorities = new String[]{
                 getResources().getString(R.string.highPriority),

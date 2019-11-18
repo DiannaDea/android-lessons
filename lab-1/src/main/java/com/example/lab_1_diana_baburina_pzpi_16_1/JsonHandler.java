@@ -133,6 +133,38 @@ public class JsonHandler implements NoteListHandler {
         return res;
     }
 
+    public List<Note> searchAndFilter(String text, int priority) {
+        if (priority == -1 && text.length() == 0) {
+            return this.getNotes();
+        }
+        if (priority > -1 && text.length() == 0) {
+            return this.filterByPriority(priority);
+        }
+        if (priority == -1 && text.length() != 0) {
+            return this.searchByText(text);
+        }
+
+
+        List<Note> notes;
+
+        if (priority >= 0) {
+            notes = this.filterByPriority(priority);
+        } else {
+            notes = this.getNotes();
+        }
+
+        List<Note> res = new ArrayList<Note>();
+
+        for (Note note : notes) {
+            if (note.getName().matches(String.format("(?i:.*%s.*)", text))) {
+                res.add(note);
+            }
+        }
+        return res;
+    }
+
+
+
     @Override
     public List<Note> searchByText(String text) {
         List<Note> notes = this.getNotes();

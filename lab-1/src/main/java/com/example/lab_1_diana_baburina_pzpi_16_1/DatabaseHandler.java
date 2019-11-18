@@ -162,6 +162,29 @@ public class DatabaseHandler extends SQLiteOpenHelper implements NoteListHandler
         return res;
     }
 
+    @Override
+    public List<Note> searchAndFilter(String text, int priority) {
+        if (priority == -1 && text.length() == 0) {
+            return this.getNotes();
+        }
+        if (priority > -1 && text.length() == 0) {
+            return this.filterByPriority(priority);
+        }
+        if (priority == -1 && text.length() != 0) {
+            return this.searchByText(text);
+        }
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NOTES, new String[] { KEY_ID,
+                        KEY_NAME, KEY_DESCRIPTION, KEY_LEVEL, KEY_DATE, KEY_IMAGE }, KEY_NAME + " LIKE ? AND " + KEY_LEVEL + " =?",
+                new String[]  {"%"+ text+ "%", String.valueOf(priority) }, null, null, null, null);
+
+        List<Note> res =  this.retrieveQueriedElements(cursor);
+        return res;
+
+    }
+
     public List<Note> retrieveQueriedElements(Cursor cursor ) {
         List<Note> res = new ArrayList<>();
 

@@ -11,4 +11,5 @@ public interface NoteListHandler {
     public boolean deleteNote(String noteName);
     public List<Note> filterByPriority(int priority);
     public List<Note> searchByText(String text);
+    public List<Note> searchAndFilter(String text, int priority);
 }

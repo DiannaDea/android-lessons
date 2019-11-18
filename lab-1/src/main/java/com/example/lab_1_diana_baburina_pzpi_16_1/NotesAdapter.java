@@ -37,4 +37,8 @@ public class NotesAdapter {
     public List<Note> searchByText(String text) {
         return this.handler.searchByText(text);
     }
+
+    public List<Note> searchAndFilter(String text, int priority) {
+        return this.handler.searchAndFilter(text, priority);
+    }
 }
