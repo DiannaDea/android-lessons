@@ -11,13 +11,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NotesAdapter {
+public class NotesAdapter implements NoteListHandler {
     private Context context;
 
     public NotesAdapter(Context context) {
         this.context = context;
     }
 
+    @Override
     public List<Note> getNotes() {
         List<Note> notes = new ArrayList<Note>();
         JSONObject notesJSON = JsonManager.readJSON(this.context);
@@ -41,6 +42,7 @@ public class NotesAdapter {
         return notes;
     }
 
+    @Override
     public boolean addNote(Note noteToAdd) {
         List<Note> notes = this.getNotes();
         notes.add(noteToAdd);
@@ -51,6 +53,7 @@ public class NotesAdapter {
         return true;
     }
 
+    @Override
     public Note getNote(String noteName) {
         List<Note> notes = this.getNotes();
         int index = this.findIndex(notes, noteName);
@@ -60,6 +63,7 @@ public class NotesAdapter {
         return notes.get(index);
     }
 
+    @Override
     public boolean updateNote(String noteName, HashMap<String, String> paramsToUpdate) {
         List<Note> notes = this.getNotes();
         int index = this.findIndex(notes, noteName);
@@ -101,6 +105,7 @@ public class NotesAdapter {
         return true;
     }
 
+    @Override
     public boolean deleteNote(String noteName) {
         List<Note> notes = this.getNotes();
 
@@ -113,6 +118,32 @@ public class NotesAdapter {
         JsonManager.writeToJSON(this.context, jsonArray);
 
         return true;
+    }
+
+    @Override
+    public List<Note> filterByPriority(int priority) {
+        List<Note> notes = this.getNotes();
+        List<Note> res = new ArrayList<Note>();
+
+        for (Note note : notes) {
+            if (note.getPriority() == priority) {
+                res.add(note);
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public List<Note> searchByText(String text) {
+        List<Note> notes = this.getNotes();
+        List<Note> res = new ArrayList<Note>();
+
+        for (Note note : notes) {
+            if (note.getName().matches(String.format("(?i:.*%s.*)", text))) {
+                res.add(note);
+            }
+        }
+        return res;
     }
 
     private JSONArray updateArray(List<Note> notes){
@@ -137,29 +168,5 @@ public class NotesAdapter {
         }
 
         return index;
-    }
-
-    public List<Note> filterByPriority(int priority) {
-        List<Note> notes = this.getNotes();
-        List<Note> res = new ArrayList<Note>();
-
-        for (Note note : notes) {
-            if (note.getPriority() == priority) {
-                res.add(note);
-            }
-        }
-        return res;
-    }
-
-    public List<Note> searchByText(String text) {
-        List<Note> notes = this.getNotes();
-        List<Note> res = new ArrayList<Note>();
-
-        for (Note note : notes) {
-            if (note.getName().matches(String.format("(?i:.*%s.*)", text))) {
-                res.add(note);
-            }
-        }
-        return res;
     }
 }

@@ -22,7 +22,8 @@ import java.util.HashMap;
 
 public class ManageNoteActivity extends AppCompatActivity {
     Note noteToUpdate;
-    NotesAdapter notesAdapter;
+    // NotesAdapter notesAdapter;
+    DatabaseHandler notesAdapter;
     Spinner priorityDropdown;
     String[] priorities;
     private static int RESULT_LOAD_IMAGE = 1;
@@ -31,7 +32,8 @@ public class ManageNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_note);
-        this.notesAdapter = new NotesAdapter(this);
+        // this.notesAdapter = new NotesAdapter(this);
+        this.notesAdapter = new DatabaseHandler(this);
 
         priorities = new String[]{
                 getResources().getString(R.string.highPriority),
@@ -96,7 +98,7 @@ public class ManageNoteActivity extends AppCompatActivity {
                 EditText descriptionInput = findViewById(R.id.descriptionUpdateInput);
                 final String description = descriptionInput.getText().toString();
 
-                final String priority = priorityDropdown.getSelectedItem().toString();
+                final int priority = priorityDropdown.getSelectedItemPosition();
 
                 EditText dateInput = findViewById(R.id.dateUpdateInput);
                 final String date = dateInput.getText().toString();
@@ -104,7 +106,7 @@ public class ManageNoteActivity extends AppCompatActivity {
                 TextView imagePathInput = findViewById(R.id.imagePathUpdateInput);
                 final String imagePath = imagePathInput.getText().toString();
 
-                Note newNote = new Note(name, description, Note.transformPriorityToInt(priority), date, imagePath);
+                Note newNote = new Note(name, description, priority, date, imagePath);
 
                 notesAdapter.addNote(newNote);
 
